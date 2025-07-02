@@ -1,5 +1,6 @@
 # for i in range(1,1001):
 #     print(f'#{i}')
+#     print(' ')
 from functools import reduce
 
 
@@ -431,46 +432,242 @@ assert shorten("Rage Against The Machine") == 'RATM'
 #47 Napisz funkcję name_sorter, która przyjmie jako parametr listę imion.
 def name_sorter(list_names):
     temp = {"female": [], "male": []}
+
     for name in list_names:
         if name[-1].upper() == "A":
             temp["female"].append(name)
         else:
-            temp["male"] = []
-            return temp["male"].append(name)
+            temp["male"].append(name)
 
-print(name_sorter(["Andrzej", "Henryk", "Alicja", "Cezary", "Barbara"]))
-assert name_sorter(["Andrzej", "Henryk", "Alicja", "Cezary", "Barbara"]) == {'female': ['Alicja', 'Barbara'], 'male': ['Andrzej', 'Cezary', 'Henryk']}
+    return temp
+
+assert name_sorter(["Andrzej", "Henryk", "Alicja", "Cezary", "Barbara"]) == {'female': ['Alicja', 'Barbara'], 'male': ['Andrzej', 'Henryk', 'Cezary']}
 
 
-#48
-#49
-#50
-#51
-#52
+#48 str to number
+def string_to_number(s):
+    return int(s)
+
+assert string_to_number("12") == 12
+#49 walk in a circle, tapping on each player's head until one is chosen
+def duck_duck_goose(players, goose):
+    return players[(goose - 1) % len(players)]
+
+assert duck_duck_goose(['a', 'b', 'c', 'd'], 1) == 'a'
+assert duck_duck_goose(['a', 'b', 'c', 'd'], 5) == 'a'
+
+#50 remove_exclamation_marks
+def remove_exclamation_marks(s):
+    return s.replace('!', '')
+
+assert remove_exclamation_marks('Hello word !!!!!') == 'Hello word '
+
+#51 check palindrome(text)
+def check_palindrome(text):
+    if text.lower().replace(' ','')[::-1] == text.lower().replace(' ',''):
+        return True
+
+print(check_palindrome('Kobyła ma mały bok'))
+assert check_palindrome('ala') == True
+assert check_palindrome('Kobyła ma mały bok') == True
+
+#52 Napisz funkcję div, która przyjmie 2 argumenty liczbowe. Argumenty to początek i koniec zakresu liczb. Funkcja ma jako wynik, zwrócić listę liczb w podanym zakresie, które jednocześnie są podzielne przez 2 i niepodzielne przez 3. Wprowadzony zakres powinien być domknięty, tzn. należy sprawdzić także liczby, które są początkiem i końcem zakresu.
+def div(a,b):
+    return [x for x in range(a,b + 1) if x % 2 == 0 and x % 3 != 0]
+
+#print(div(0, 20))
+assert div(0, 20) == [2, 4, 8, 10, 14, 16, 20]
+
 #53
+
+# Napisz funkcję roll, która przyjmie 3 parametry:
+# liczbę kostek,
+# opcjonalnie: typ kostki (dozwolone kostki 3, 4, 6, 8, 10, 12 i 100 ścienne), standardowa wartość, to 6 ,
+# opcjonalnie: modyfikator wyniku (liczba dodana, lub odjęta od wyniku kośćmi), standardowa wartość, to 0.
+# Następnie funkcja ma zasymulować rzut odpowiednią liczbą kostek, zsumować wyniki i dodać (lub odjąć) modyfikator. Wynik ma zwrócić.
+# Dla uproszczenia możesz przyjąć, że wszystkie liczby podane jako parametry są liczbami naturalnymi.
+# Jeśli użytkownik wpisze kostkę, której nie ma w powyższym zestawieniu, funkcja ma wyrzucić wyjątek Exception z komunikatem "No such dice!
+
 #54
-#55
-#56
-#57
-#58
-#59
-#60
-#61
-#62
-#63
-#64
-#65
-#66
-#67
-#68
-#69
-#70
-#71
-#72
-#73
-#74
-#75
-#76
+# Zapoznaj się z modułem exam umieszczonym w pliku dołączonym do tego egzaminu. W tym module znajduje się słownik movies, w którym można znaleźć listę ulubionych i znienawidzonych filmów pewnego programisty.
+# Używając Flaska, utwórz stronę, którą udostępnisz pod adresem /movies:
+# jeśli użytkownik wejdzie na stronę metodą GET, wyświetl formularz, który:
+# będzie miał pole tekstowe o nazwie title,
+# opisem pola będzie: "Insert title",
+# jeśli użytkownik wejdzie na stronę metodą POST:
+# sprawdź, czy film znajduje się na liście ulubionych filmów, jeśli tak, zwróć tekst "favourite",
+# sprawdź, czy film znajduje się na liście znienawidzonych filmów, jeśli tak, zwróć tekst "hated",
+# jeśli nie znajduje się na żadnej liście, zwróć tekst "no such movie!".
+# Ważne: Powołując aplikację Flaska, użyj zmiennej app!
+
+#55 upper
+def is_upper(text):
+    return text.upper()
+
+
+assert is_upper('ala ma kota') == 'ALA MA KOTA'
+
+print('ala ma kota'.translate('a'))
+
+#56 casefold
+def is_casefold(text):
+    return text.casefold()
+
+assert is_casefold("StraSSe") == 'strasse'
+
+#57 center
+def is_center(text):
+    return text.center(10, "-")
+
+print(is_center("piotro"))
+assert is_center("piotro") == '--piotro--'
+
+#58count
+
+def count_n(text, n):
+    return text.count(n)
+
+print(count_n('banana', 'i'))
+assert count_n('banana', 'a') == 3
+
+#59 endswith
+
+def is_endwith(text, end):
+    return text.endswith(end)
+
+assert is_endwith('file.py', 'py') == True
+
+#60 find
+def find_first(text, n):
+    return text.find(n)
+
+assert find_first('asia je owsiankę', 'a') == 0
+
+#61 Say hello by name
+def say_hello(name):
+    return 'Siemano {}'.format(name)
+
+assert say_hello('Pio') == 'Siemano Pio'
+
+#62 format
+def say_hello_and_age(name, age):
+    return 'Siemano {} masz {} lat'.format(name, age)
+
+assert say_hello_and_age('Pio', 37) == 'Siemano Pio masz 37 lat'
+
+#63 format_map
+def say_hello_and_age_map(dict):
+    return 'Siemano {name} masz {age} lat'.format_map(dict)
+
+assert say_hello_and_age_map({'name': 'Pio', 'age': 37}) == 'Siemano Pio masz 37 lat'
+
+#64 index
+def make_index(text, letter):
+    return text.index(letter)
+
+assert make_index('abcabc', 'b') == 1
+
+#65 is there number?
+def is_there_number(text):
+    return text.isalnum()
+
+assert is_there_number('aaevfaev5av') == True
+assert is_there_number('0') == True
+
+#66 is alpha?
+def is_alpha(text):
+    return text.isalpha()
+
+assert is_alpha('adasd') == True
+
+#67 is asci??
+def is_asci(text):
+    return text.isascii()
+
+assert is_asci('ala123') == True
+assert is_asci('#$%^') == True
+assert is_asci('śąż') == False
+assert is_asci('<>,.;[]>') == True
+assert is_asci('ala123') == True
+
+#68 prime number
+def prime_num(n):
+    if n <= 1:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    for i in range(3, int(n**0.5) + 1, 2):
+        if n % i == 0:
+            return False
+    return True
+
+assert prime_num(2) == True
+assert prime_num(17) == True
+assert prime_num(23) == True
+assert prime_num(27) == False
+assert prime_num(3) == True
+
+#69 Sum_num
+def sum_num(*numbers):
+    return sum(number for number in numbers)
+
+assert sum_num(1,2,3) == 6
+assert sum_num(1,) == 1
+assert sum_num() == 0
+
+#70 Liczba doskonała to taka, która jest sumą swoich dodatnich dzielników właściwych (czyli mniejszych od niej samej).
+def is_perfect_number(n):
+    if n < 2:
+        return False
+    divisors = [i for i in range(1, n) if n % i == 0]
+    return sum(divisors) == n
+
+assert is_perfect_number(2) == False
+assert is_perfect_number(28) == True
+
+#71 is palindrome
+def is_palindrome_number(n):
+    n_str = str(n)
+    return n_str == n_str[::-1]
+
+assert is_palindrome_number(212) == True
+
+#72 highiest and lowest
+def high_and_low(numbers: str) -> str:
+    nums = list(map(int, numbers.split()))
+    return f"{max(nums)} {min(nums)}"
+
+assert high_and_low("1 2 3 4 5") == '5 1'
+assert high_and_low("1 2 -3 4 5") == "5 -3"
+assert high_and_low("1 9 3 4 -5") == "9 -5"
+
+
+#73array plus array
+def array_plus_array(arr1,arr2):
+    return sum(arr1 + arr2)
+
+
+
+assert array_plus_array([1, 2, 3], [4, 5, 6]) == 21
+
+
+#74 Return the number (count) of vowels in the given string.
+def get_count(sentence):
+    return sum(1 for chars in sentence if chars in 'aeiou' )
+
+assert get_count('hello world') == 3
+
+#75Your task is to write a function that takes a string and return a new string with all vowels removed.
+def disemvowel(string_: str) -> str:
+    return "".join(char for char in string_ if char not in 'aeiouAEIOU')
+
+assert disemvowel("This website is for losers LOL!") == "Ths wbst s fr lsrs LL!"
+
+#76 filter: Parzyste liczby z listy
+
+
 #77
 #78
 #79
