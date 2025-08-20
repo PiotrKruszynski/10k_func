@@ -1,8 +1,24 @@
 # for i in range(1,1001):
 #     print(f'#{i}')
 #     print(' ')
-from functools import reduce
 
+from functools import reduce
+from time import sleep
+
+#0 policz pole kwadratu rekurencją TODO dokształć się
+
+def square_area_recurrency(a: int) -> int:
+    def recurrency(count: int) -> int:
+        if count == 0:
+            return 0
+        return a + recurrency(count -1)
+    return recurrency(a) if a >= 0 else 0
+
+
+assert square_area_recurrency(2) == 4
+assert square_area_recurrency(4) == 16
+assert square_area_recurrency(5) == 25
+assert square_area_recurrency(3) == 9
 
 #1 policz pole kwadratu
 
@@ -665,35 +681,224 @@ def disemvowel(string_: str) -> str:
 
 assert disemvowel("This website is for losers LOL!") == "Ths wbst s fr lsrs LL!"
 
-#76 filter: Parzyste liczby z listy
+#76 create_notes
+def create_note(note: list[str], text: str) -> list[str]:
+    note.append(text)
+    return note
 
+first_note = "Pierwsza notatka"
+second_note = "Druga notatka"
 
-#77
-#78
-#79
+note: list[str] = []
+assert create_note(note, first_note) == ["Pierwsza notatka"]
+assert create_note(note, second_note) == ["Pierwsza notatka", "Druga notatka"]
+
+#77 read notes
+def read_notes(note: list[str]) -> list[str]:
+    return note.copy()
+
+assert read_notes(note) == ["Pierwsza notatka", "Druga notatka"]
+
+#78 update notes
+def update_notes(notes: list[str], index: int, new_text: str) -> str:
+    if 0 <= index < len(notes):
+        notes[index] = new_text
+    return new_text
+
+assert update_notes(note, 0, "Zmieniona notatka") == "Zmieniona notatka"
+assert note == ["Zmieniona notatka", "Druga notatka"]
+
+#79 delete notes
+def delete_notes(notes: list[str], index: int) -> list[str]:
+    if 0 <= index < len(notes):
+        del notes[index]
+    return notes
+
+assert delete_notes(note, 1) == ["Zmieniona notatka"]
+
 #80
+def magic_pro(item, array=[]):
+    array.append(item)
+    return array
+
+assert magic_pro(1) == [1]
+assert magic_pro(2) == [1, 2]
+assert magic_pro(3, [0]) == [0, 3]
+
 #81
-#82
+def magic_pro(item, array=None):
+    if array is None:
+        array = []
+    array.append(item)
+    return array
+
+assert magic_pro(1) == [1]
+assert magic_pro(2) == [2]
+assert magic_pro(3, [0]) == [0, 3]
+
+#82 args and kwargs
+def magic(*args: int, **kwargs: int) -> tuple[tuple[int, ...], type, dict[str, int], type]:
+    return args, type(args), kwargs, type(kwargs)
+
+assert magic() == ((), tuple, {}, dict)
+assert magic(1, 2, a=3) == ((1, 2), tuple, {'a': 3}, dict)
+assert magic(1, 2, 3, b=4, c=5) == ((1,2,3), tuple, {'b': 4, 'c': 5}, dict)
+
 #83
-#84
-#85
-#86
-#87
-#88
-#89
+def magic(a, b, /, c, *, d, e):
+    return (a, b, c, d, e)
+
+assert magic(1, 2, 3, d=1, e=1) == (1, 2, 3, 1, 1)
+assert magic(1, 2, c=3, d=1, e=1) == (1, 2, 3, 1, 1)
+
+
+#84 multiply recuration
+def multiply_recuration(x: int, y: int) -> int:
+    if y == 0:
+        return 0
+    return x + multiply_recuration(x, y - 1)
+
+assert multiply_recuration(2,2) == 4
+assert multiply_recuration(6,2) == 12
+
+
+#85 double numbers
+def double_comprehension(data):
+    return [num *2 for num in data]
+
+assert double_comprehension([1,2,3]) == [2,4,6]
+
+#86 TODO dokształ się
+def double_map(data):
+    return list(map(lambda num: num*2, data))
+
+assert double_map([1,2,3]) == [2,4,6]
+#87flatt TODO dokształ się
+def flatt_reduce(nested):
+    return reduce(
+        lambda acc, sublist: acc + sublist,
+        nested,
+        []
+    )
+
+assert flatt_reduce([[1, 2], [3, 4], [5, 6]]) == [1,2,3,4,5,6]
+
+#88flatt comprehension TODO dokształ się
+def flatt_comprehension(nested):
+    return [item for sublist in nested for item in sublist]
+
+assert flatt_comprehension([[1, 2], [3, 4], [5, 6]]) == [1,2,3,4,5,6]
+
+
+#89 flatt for
+def flat_for(nested):
+    flatt = []
+    for sublist in nested:
+        for item in sublist:
+            flatt.append(item)
+    return flatt
+
+assert flat_for([[1, 2], [3, 4], [5, 6]]) == [1,2,3,4,5,6]
+
 #90
+def create_sentence(fn, text):
+    return fn(text)
+
+
 #91
+def capitalize_text(text):
+    return text.upper
+
 #92
+def lower(text):
+    return text.lower
+
 #93
-#94
-#95
-#96
-#97
-#98
-#99
-#100
-#101
+def sentence(name):
+    def full_sentence(age):
+        return f'Mam na imię {name} i mam {age} lat'
+
+    return full_sentence
+
+
+#94 make dict
+def make_dict(**data):
+    return data
+
+assert make_dict(a=1, b=2, c=3) == {'a': 1, 'b': 2, 'c': 3}
+
+#95 make dict with tuple packing
+def make_dict_with_tuple_packing(*data):
+    return dict(data)
+
+assert make_dict_with_tuple_packing(("a", 1), ("b", 2), ("c", 3)) == {'a': 1, 'b': 2, 'c': 3}
+
+#96, 97, 98 memoizing
+
+
+def memoize(cb):
+    cache = {}
+
+    def inner(*args):
+        if args not in cache:
+            cache[args] = cb(*args)
+        return cache[args]
+
+    return inner
+
+
+def calculate_magic(a, b, /):
+    # intensive CPU task
+    sleep(1)
+    return a + b
+
+
+def calculate_tribonacci(a, b, c, /):
+    # intensive CPU task
+    sleep(1)
+    return a + b + c
+
+
+calculate_magic_cache = memoize(calculate_magic)
+calculate_tribonachi_cache = memoize(calculate_tribonacci)
+
+assert calculate_magic_cache(2, 3) == 5
+assert calculate_tribonachi_cache(1, 2, 3) == 6
+
+#99 id gen + closure
+def gc():
+    id_ = 0
+
+    def next_():
+        nonlocal id_
+        id_ += 1
+        return id_
+    return next_
+
+ig_gen = gc()
+
+#100 id gen + generator
+def gg():
+    id_ = 0
+    while True:
+        yield id_
+        id_ += 1
+
+id_gen = gg()
+
+
+#101 dodawanie każdej z każdą
+
+x = [1,2, 3]
+y = [1,2, 3]
+z = [1,2, 3]
+
+r = map(lambda a, b, c: a + b + c, x, y, z)
+
+
 #102
+
+
 #103
 #104
 #105
